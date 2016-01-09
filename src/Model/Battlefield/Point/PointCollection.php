@@ -17,7 +17,7 @@ class PointCollection implements \Iterator
      *
      * @var Point[]
      */
-    private $points;
+    private $points = [];
     
     public function __construct($points = array())
     {
@@ -40,6 +40,20 @@ class PointCollection implements \Iterator
         }
         
         return null;
+    }
+    
+    /**
+     * Check if there is point with given coordinates
+     * @param Point $point
+     */
+    public function hasPoint(Point $point)
+    {
+        $point = $this->getPointByCoordinates($point->getX(), $point->getY());
+        if ($point) {
+            return true;
+        }
+        
+        return false;
     }
 
     public function current()
@@ -65,5 +79,10 @@ class PointCollection implements \Iterator
     public function valid()
     {
         return isset($this->points[$this->iteratorPosition]);
+    }
+    
+    public function count()
+    {
+        return count($this->points);
     }
 }

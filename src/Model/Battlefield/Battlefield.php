@@ -13,6 +13,11 @@ use Model\Battleship\BattleshipInterface;
  */
 class Battlefield
 {
+    const POINT_STATUS_NO_SHOT = 0;
+    const POINT_STATUS_SHOT = 1;
+    const POINT_STATUS_SHIP_NOT_HIT = 2;
+    const POINT_STATUS_SHIP_HIT = 3;
+    
     private $fieldWidth;
     private $fieldHeight;
     
@@ -21,6 +26,10 @@ class Battlefield
      * @var Placer[]
      */
     private $placers = [];
+    /**
+     *
+     * @var PointCollection
+     */
     private $shots = [];
     
     /**
@@ -36,19 +45,19 @@ class Battlefield
         $this->shots = new PointCollection();
     }
     
-    protected function getFieldMaximumHeightIndex()
+    public function getFieldMaximumHeightIndex()
     {
         return $this->fieldHeight -1;
     }
     
-    protected function getFieldMaximumWidthIndex()
+    public function getFieldMaximumWidthIndex()
     {
         return $this->fieldWidth -1;
     }
     
     public function shoot(Point $shot)
     {
-        $this->shots[] = $shot;
+        $this->shots->addPoint($shot);
     }
     
     public function getShots()
@@ -61,7 +70,9 @@ class Battlefield
      */
     public function addBattleShip(Placer $placer)
     {
-        // user should not be able to add bships if there are shots!
+        if ($this->shots->count()) {
+            throw new Exception\Exception("Can\'t add placers. There are shoots!");
+        }
         $this->placers[] = $placer;
     }
     
@@ -146,5 +157,29 @@ class Battlefield
         }
         
         return true;
+    }
+    
+    public function getPointStatus(Point $point)
+    {
+        if (!$this->isPointValid($point)) {
+            throw new Exception("Can't get status of invalid point");
+        }
+        
+        $isThereShot = $this->shots->hasPoint($point);
+        $isThereShip = !$this->isPointFree($point);
+        
+        if ($isThereShot) {
+            if ($isThereShip) {
+                return self::POINT_STATUS_SHIP_HIT;
+            }
+            
+            return self::POINT_STATUS_SHOT;
+        }
+        
+        if ($isThereShip) {
+            return self::POINT_STATUS_SHIP_NOT_HIT;
+        }
+        
+        return self::POINT_STATUS_NO_SHOT;
     }
 }
