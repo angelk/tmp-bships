@@ -1,0 +1,13 @@
+{
+    "require": {
+        "php": "^5.4",
+        "silex/silex": "^1.3",
+        "twig/twig": "^1.2",
+        "symfony/console": "2.8.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Model\\": "src/"
+        }
+    }
+}
