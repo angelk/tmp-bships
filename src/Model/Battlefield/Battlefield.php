@@ -162,7 +162,7 @@ class Battlefield
     public function getPointStatus(Point $point)
     {
         if (!$this->isPointValid($point)) {
-            throw new Exception("Can't get status of invalid point");
+            throw new Exception\Exception("Can't get status of invalid point");
         }
         
         $isThereShot = $this->shots->hasPoint($point);

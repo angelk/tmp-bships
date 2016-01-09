@@ -107,9 +107,11 @@ class Visualizer
     public function getOutput()
     {
         $output = $this->beforeStart;
-        for ($y = 0; $y <= $this->battlefield->getFieldMaximumHeightIndex(); $y ++) {
+        $battlefieldMaxWidthIndex = $this->battlefield->getFieldMaximumWidthIndex();
+        $battlefieldMaxHeightIndex = $this->battlefield->getFieldMaximumHeightIndex();
+        for ($y = 0; $y <= $battlefieldMaxHeightIndex; $y ++) {
             $output .= $this->beforeNewRow;
-            for ($x = 0; $x <= $this->battlefield->getFieldMaximumWidthIndex(); $x++) {
+            for ($x = 0; $x <= $$battlefieldMaxWidthIndex; $x++) {
                 $output .= $this->beforeNewField;
                 $pointToVisualize = new \Model\Battlefield\Point($x, $y);
                 $pointStatus = $this->battlefield->getPointStatus($pointToVisualize);
