@@ -14,10 +14,18 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 
 $app->get('/', function () use ($app) {
+    
+    $savedData = isset($_SESSION['battleship.progress']) ? $_SESSION['battleship.progress'] : null;
+    if ($savedData) {
+        
+    } else {
+        $battlefield = unserialize($savedData);
+    }
+    
     return $app['twig']->render(
         'home.html.twig',
         [
-            'test' => uniqid(),
+            'battlefield' => $battlefield,
         ]
     );
 });

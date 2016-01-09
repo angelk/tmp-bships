@@ -39,7 +39,10 @@ class BattleshipFreePointTest extends \PHPUnit_Framework_TestCase
         ];
         
         foreach ($validPoints as $validPoint) {
-            $this->assertTrue($field->isPointFree($validPoint));
+            $this->assertTrue(
+                $field->isPointFree($validPoint),
+                "Point [{$validPoint->getX()}, {$validPoint->getY()}] should be valid"
+            );
         }
         
         foreach ($invalidPoints as $invalidPoint) {

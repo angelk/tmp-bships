@@ -9,8 +9,10 @@ use Model\Battlefield\Point;
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
-class PointCollection
+class PointCollection implements \Iterator
 {
+    private $iteratorPosition = 0;
+    
     /**
      *
      * @var Point[]
@@ -38,5 +40,30 @@ class PointCollection
         }
         
         return null;
+    }
+
+    public function current()
+    {
+        return $this->points[$this->iteratorPosition];
+    }
+
+    public function key()
+    {
+        return $this->iteratorPosition;
+    }
+
+    public function next()
+    {
+        $this->iteratorPosition++;
+    }
+
+    public function rewind()
+    {
+        $this->iteratorPosition = 0;
+    }
+
+    public function valid()
+    {
+        return isset($this->points[$this->iteratorPosition]);
     }
 }
