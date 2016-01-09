@@ -1,4 +1,5 @@
 {
+    "name" : "angelk/tmp-bships",
     "description": "Single player battleship game",
     "require": {
         "php": "^5.4",
