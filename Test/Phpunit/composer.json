@@ -1,0 +1,6 @@
+{
+    "description": "phpunit test cases",
+    "require": {
+        "phpunit/phpunit": "4.*"
+    }
+}
