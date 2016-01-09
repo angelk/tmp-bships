@@ -8,6 +8,7 @@ before_script:
   - phpenv rehash
 
 script:
+    - composer install
     - cd Test/Phpunit
     - composer install
     - vendor/bin/phpunit
