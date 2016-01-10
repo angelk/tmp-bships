@@ -39,4 +39,19 @@ class BattleFieldTest extends \PHPUnit_Framework_TestCase
         }
         
     }
+    
+    public function testShootOnInvalidPoint()
+    {
+        $this->setExpectedException(\Model\Battlefield\Exception\HumanReadableException::class);
+        $battlefield = new Battlefield(3, 3);
+        $shot = new Point(4, 5);
+        $battlefield->shoot($shot);
+    }
+    
+    public function testShotOnValidPoint()
+    {
+        $battlefield = new Battlefield(3, 3);
+        $shot = new Point(2, 2);
+        $battlefield->shoot($shot);
+    }
 }

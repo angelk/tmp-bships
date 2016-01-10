@@ -59,7 +59,9 @@ class Battlefield
     
     public function shoot(PointInterface $shot)
     {
-        // @TODO throw exception on invalid point!
+        if (!$this->isPointValid($shot)) {
+            throw new Exception\HumanReadableException("Invlid point");
+        }
         $this->shots->addPoint($shot);
     }
     
