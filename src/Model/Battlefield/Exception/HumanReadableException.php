@@ -9,6 +9,6 @@ use Model\Exception\HumanReadableInterface;
  *
  * @author po_taka
  */
-class HumanReadableException extends Exception implements HumanReadableInterface 
+class HumanReadableException extends Exception implements HumanReadableInterface
 {
 }
