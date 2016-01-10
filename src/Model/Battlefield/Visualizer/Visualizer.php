@@ -3,6 +3,7 @@
 namespace Model\Battlefield\Visualizer;
 
 use Model\Battlefield\Battlefield;
+use Model\Battlefield\Point\Point;
 
 /**
  * Description of Visualizer
@@ -54,13 +55,13 @@ class Visualizer implements VisualizerInterface
         $battlefieldMaxWidthIndex = $this->battlefield->getFieldMaximumWidthIndex();
         $battlefieldMaxHeightIndex = $this->battlefield->getFieldMaximumHeightIndex();
         
-        $output .= $this->getHeaderRowOutput();
+        $output = $this->getHeaderRowOutput();
         $output .= PHP_EOL;
         
         for ($y = 0; $y <= $battlefieldMaxHeightIndex; $y ++) {
             $output .= $this->getRowIndexOutput($y);
             for ($x = 0; $x <= $battlefieldMaxWidthIndex; $x++) {
-                $pointToVisualize = new \Model\Battlefield\Point($x, $y);
+                $pointToVisualize = new Point($x, $y);
                 $pointStatus = $this->battlefield->getPointStatus($pointToVisualize);
                 $output .= $this->pointStatusToOutputValue($pointStatus) . ' ';
             }
@@ -72,7 +73,7 @@ class Visualizer implements VisualizerInterface
     
     public function getRowIndexOutput($rowIndex)
     {
-        $output .= $rowIndex . ' ';
+        $output = $rowIndex . ' ';
         return $output;
     }
     

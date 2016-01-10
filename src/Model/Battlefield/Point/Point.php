@@ -1,13 +1,13 @@
 <?php
 
-namespace Model\Battlefield;
+namespace Model\Battlefield\Point;
 
 /**
  * Description of Point
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
-class Point
+class Point implements PointInterface
 {
     private $x;
     private $y;

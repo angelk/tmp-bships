@@ -35,13 +35,13 @@ $app->get('/', function () use ($app) {
     
     $placer = new Model\Battlefield\Placer(
         new \Model\Battleship\Destroyer(),
-        new Model\Battlefield\Point(1, 2),
-        new Model\Battlefield\Point(1, 6)
+        new Model\Battlefield\Point\Point(1, 2),
+        new Model\Battlefield\Point\Point(1, 6)
     );
     
     $battlefield->addBattleShip($placer);
-    $battlefield->shoot(new Model\Battlefield\Point(1, 1));
-    $battlefield->shoot(new Model\Battlefield\Point(0, 0));
+    $battlefield->shoot(new Model\Battlefield\Point\Point(1, 1));
+    $battlefield->shoot(new Model\Battlefield\Point\Point(0, 0));
     
     
     return $app['twig']->render(

@@ -3,7 +3,7 @@
 namespace Test\PhpUnit\Battlefield\Tests\Battlefield;
 
 use Model\Battlefield\Battlefield;
-use Model\Battlefield\Point;
+use Model\Battlefield\Point\Point;
 
 /**
  * Description of BattleField

@@ -2,6 +2,8 @@
 
 namespace Model\Battlefield;
 
+use Model\Battlefield\Point\PointInterface;
+use Model\Battlefield\Point\Point;
 use Model\Battlefield\Placer;
 use Model\Battlefield\Point\PointCollection;
 use Model\Battleship\BattleshipInterface;
@@ -55,7 +57,7 @@ class Battlefield
         return $this->fieldWidth -1;
     }
     
-    public function shoot(Point $shot)
+    public function shoot(PointInterface $shot)
     {
         // @TODO throw exception on invalid point!
         $this->shots->addPoint($shot);
@@ -126,7 +128,7 @@ class Battlefield
         return $potentialPlacements;
     }
     
-    public function isPointValid(Point $point)
+    public function isPointValid(PointInterface $point)
     {
         $pointX = $point->getX();
         if ($this->getFieldMaximumWidthIndex() < $pointX) {
@@ -141,7 +143,7 @@ class Battlefield
         return true;
     }
     
-    public function isPointFree(Point $point)
+    public function isPointFree(PointInterface $point)
     {
         if (!$this->isPointValid($point)) {
             // should I throw exception ?
@@ -160,7 +162,7 @@ class Battlefield
         return true;
     }
     
-    public function getPointStatus(Point $point)
+    public function getPointStatus(PointInterface $point)
     {
         if (!$this->isPointValid($point)) {
             throw new Exception\Exception("Can't get status of invalid point");

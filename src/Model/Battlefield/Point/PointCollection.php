@@ -2,8 +2,6 @@
 
 namespace Model\Battlefield\Point;
 
-use Model\Battlefield\Point;
-
 /**
  * Description of PointCollection
  *
@@ -15,7 +13,7 @@ class PointCollection implements \Iterator
     
     /**
      *
-     * @var Point[]
+     * @var PointInterface[]
      */
     private $points = [];
     
@@ -26,7 +24,7 @@ class PointCollection implements \Iterator
         }
     }
     
-    public function addPoint(Point $point)
+    public function addPoint(PointInterface $point)
     {
         $this->points[] = $point;
     }
@@ -46,7 +44,7 @@ class PointCollection implements \Iterator
      * Check if there is point with given coordinates
      * @param Point $point
      */
-    public function hasPoint(Point $point)
+    public function hasPoint(PointInterface $point)
     {
         $point = $this->getPointByCoordinates($point->getX(), $point->getY());
         if ($point) {

@@ -3,7 +3,7 @@
 namespace Model\Battlefield;
 
 use Model\Battleship\BattleshipInterface;
-use Model\Battlefield\Point;
+use Model\Battlefield\Point\PointInterface;
 
 /**
  * Description of Placer
@@ -16,7 +16,7 @@ class Placer
     private $startPoint;
     private $endPoint;
     
-    public function __construct(BattleshipInterface $battleship, Point $start, Point $end)
+    public function __construct(BattleshipInterface $battleship, PointInterface $start, PointInterface $end)
     {
         $this->battleship = $battleship;
         $this->startPoint = $start;
@@ -29,7 +29,7 @@ class Placer
     }
 
     /**
-     * @return Point
+     * @return PointInterface
      */
     public function getStartPoint()
     {
@@ -37,7 +37,7 @@ class Placer
     }
 
     /**
-     * @return Point
+     * @return PointInterface
      */
     public function getEndPoint()
     {

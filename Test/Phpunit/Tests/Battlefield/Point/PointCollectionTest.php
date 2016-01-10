@@ -2,7 +2,7 @@
 
 namespace Test\PhpUnit\Battlefield\Tests\Battlefield\Point;
 
-use Model\Battlefield\Point;
+use Model\Battlefield\Point\Point;
 use Model\Battlefield\Point\PointCollection;
 
 /**

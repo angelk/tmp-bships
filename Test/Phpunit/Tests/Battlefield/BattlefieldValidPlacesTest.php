@@ -4,7 +4,7 @@ namespace Test\PhpUnit\Battlefield\Tests\Battlefield;
 
 use Model\Battlefield\Battlefield;
 use Model\Battleship\Battleship;
-use Model\Battlefield\Point;
+use Model\Battlefield\Point\Point;
 
 class BattlefieldValidPlacesTest extends \PHPUnit_Framework_TestCase
 {
