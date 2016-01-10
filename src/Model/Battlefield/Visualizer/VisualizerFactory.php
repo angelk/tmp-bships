@@ -13,7 +13,17 @@ class VisualizerFactory
 {
     public function create(Battlefield $battlefield)
     {
-//        return new VisualizerCheat($battlefield);
+        $lastShot = $battlefield->getShots()
+                                    ->getLastPoint(false);
+        
+        if (!$lastShot) {
+            return new Visualizer($battlefield);
+        }
+        
+        if ($lastShot instanceof \Model\Battlefield\Point\CheatPointInterface) {
+            return new VisualizerCheat($battlefield);
+        }
+        
         return new Visualizer($battlefield);
     }
 }

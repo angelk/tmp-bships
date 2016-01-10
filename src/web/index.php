@@ -31,7 +31,6 @@ $app->get('/', function () use ($app) {
     }
     
     $visualizerFactory = new Model\Battlefield\Visualizer\VisualizerFactory();
-    $visualizer = $visualizerFactory->create($battlefield);
     
     $placer = new Model\Battlefield\Placer(
         new \Model\Battleship\Destroyer(),
@@ -43,6 +42,9 @@ $app->get('/', function () use ($app) {
     $battlefield->shoot(new Model\Battlefield\Point\Point(1, 1));
     $battlefield->shoot(new Model\Battlefield\Point\Point(0, 0));
     
+    $battlefield->shoot(new \Model\Battlefield\Point\CheatPoint());
+    
+    $visualizer = $visualizerFactory->create($battlefield);
     
     return $app['twig']->render(
         'home.html.twig',

@@ -3,6 +3,7 @@
 namespace Model\Battlefield;
 
 use Model\Battlefield\Point\PointInterface;
+use Model\Battlefield\Point\CheatPointInterface;
 use Model\Battlefield\Point\Point;
 use Model\Battlefield\Placer;
 use Model\Battlefield\Point\PointCollection;
@@ -59,6 +60,11 @@ class Battlefield
     
     public function shoot(PointInterface $shot)
     {
+        if ($shot instanceof CheatPointInterface) {
+            $this->shots->addPoint($shot);
+            return;
+        }
+        
         if (!$this->isPointValid($shot)) {
             throw new Exception\HumanReadableException("Invlid point");
         }

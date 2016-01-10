@@ -26,6 +26,13 @@ class PointCollectionTest extends \PHPUnit_Framework_TestCase
             $actualPoints[] = $point;
         }
         
+        $pointCollection->rewind();
+        foreach ($points as $point) {
+            $actualPoint = $pointCollection->current();
+            $pointCollection->next();
+            $this->assertSame($actualPoint, $point);
+        }
+        
         $this->assertSame($points, $actualPoints);
     }
     
