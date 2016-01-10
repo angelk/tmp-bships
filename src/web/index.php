@@ -33,10 +33,6 @@ $app->get('/', function () use ($app) {
     $visualizerFactory = new Model\Battlefield\Visualizer\VisualizerFactory();
     $visualizer = $visualizerFactory->create($battlefield);
     
-    $visualizer->setAfterNewRow('<br/>');
-    $visualizer->setBeforeNewField('&nbsp;');
-    $visualizer->setAfterNewfield('&nbsp;');
-    
     $placer = new Model\Battlefield\Placer(
         new \Model\Battleship\Destroyer(),
         new Model\Battlefield\Point(1, 2),

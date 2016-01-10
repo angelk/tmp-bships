@@ -13,14 +13,6 @@ class Visualizer implements VisualizerInterface
 {
     private $battlefield;
 
-    protected $beforeStart;
-    protected $beforeNewRow;
-    protected $afterNewRow;
-    protected $beforeNewField;
-    protected $afterNewfield;
-    protected $beforeEnd;
-    
-    
     public function __construct(Battlefield $battlefield)
     {
         $this->battlefield = $battlefield;
@@ -31,57 +23,6 @@ class Visualizer implements VisualizerInterface
         return $this->battlefield;
     }
 
-    public function getBeforeStart()
-    {
-        return $this->beforeStart;
-    }
-    
-    public function getBeforeNewRow()
-    {
-        return $this->beforeNewRow;
-    }
-    
-    public function setBeforeNewRow($beforeNewRow)
-    {
-        $this->beforeNewRow = $beforeNewRow;
-    }
-
-    public function getAfterNewRow()
-    {
-        return $this->afterNewRow;
-    }
-    
-    public function setAfterNewRow($afterNewRow)
-    {
-        $this->afterNewRow = $afterNewRow;
-    }
-
-    public function getBeforeNewField()
-    {
-        return $this->beforeNewField;
-    }
-    
-    public function setBeforeNewField($beforeNewField)
-    {
-        $this->beforeNewField = $beforeNewField;
-    }
-
-    public function getAfterNewfield()
-    {
-        return $this->afterNewfield;
-    }
-    
-    public function setAfterNewfield($afterNewfield)
-    {
-        $this->afterNewfield = $afterNewfield;
-    }
-
-    public function getBeforeEnd()
-    {
-        return $this->beforeEnd;
-    }
-
-        
     protected function pointStatusToOutputValue($pointStatus)
     {
         switch ($pointStatus) {
@@ -113,20 +54,17 @@ class Visualizer implements VisualizerInterface
         $battlefieldMaxWidthIndex = $this->battlefield->getFieldMaximumWidthIndex();
         $battlefieldMaxHeightIndex = $this->battlefield->getFieldMaximumHeightIndex();
         
-        $output = $this->beforeStart;
         $output .= $this->getHeaderRowOutput();
+        $output .= PHP_EOL;
         
         for ($y = 0; $y <= $battlefieldMaxHeightIndex; $y ++) {
-            $output .= $this->beforeNewRow;
             $output .= $this->getRowIndexOutput($y);
             for ($x = 0; $x <= $battlefieldMaxWidthIndex; $x++) {
-                $output .= $this->beforeNewField;
                 $pointToVisualize = new \Model\Battlefield\Point($x, $y);
                 $pointStatus = $this->battlefield->getPointStatus($pointToVisualize);
-                $output .= $this->pointStatusToOutputValue($pointStatus);
-                $output .= $this->afterNewfield;
+                $output .= $this->pointStatusToOutputValue($pointStatus) . ' ';
             }
-            $output .= $this->afterNewRow;
+            $output .= PHP_EOL;
         }
         
         return $output;
@@ -134,27 +72,19 @@ class Visualizer implements VisualizerInterface
     
     public function getRowIndexOutput($rowIndex)
     {
-        $output = $this->beforeNewField;
-        $output .= $rowIndex;
-        $output .= $this->afterNewfield;
+        $output .= $rowIndex . ' ';
         return $output;
     }
     
     public function getHeaderRowOutput()
     {
-        $output = $this->beforeNewRow;
         $battlefieldMaxWidthIndex = $this->battlefield->getFieldMaximumWidthIndex();
         
-        $output .= $this->beforeNewField;
-        $output .= '&nbsp;';
-        $output .= $this->afterNewfield;
+        $output = '  ';
         
         for ($x = 0; $x <= $battlefieldMaxWidthIndex; $x++) {
-            $output .= $this->beforeNewField;
-            $output .= $x;
-            $output .= $this->afterNewfield;
+            $output .= $x . ' ';
         }
-        $output .= $this->afterNewRow;
         return $output;
     }
     
