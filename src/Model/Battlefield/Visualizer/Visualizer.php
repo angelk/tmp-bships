@@ -9,7 +9,7 @@ use Model\Battlefield\Battlefield;
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
-class Visualizer
+class Visualizer implements VisualizerInterface
 {
     private $battlefield;
 
@@ -82,7 +82,7 @@ class Visualizer
     }
 
         
-    private function pointStatusToOutputValue($pointStatus)
+    protected function pointStatusToOutputValue($pointStatus)
     {
         switch ($pointStatus) {
             case Battlefield::POINT_STATUS_NO_SHOT:
@@ -104,13 +104,21 @@ class Visualizer
         return $return;
     }
     
-    public function getOutput()
+    public function getFieldOutput()
     {
-        $output = $this->beforeStart;
+        /*
+         * Maybe I don't need cli and html visualizers.
+         * <pre> will do the work
+         */
         $battlefieldMaxWidthIndex = $this->battlefield->getFieldMaximumWidthIndex();
         $battlefieldMaxHeightIndex = $this->battlefield->getFieldMaximumHeightIndex();
+        
+        $output = $this->beforeStart;
+        $output .= $this->getHeaderRowOutput();
+        
         for ($y = 0; $y <= $battlefieldMaxHeightIndex; $y ++) {
             $output .= $this->beforeNewRow;
+            $output .= $this->getRowIndexOutput($y);
             for ($x = 0; $x <= $battlefieldMaxWidthIndex; $x++) {
                 $output .= $this->beforeNewField;
                 $pointToVisualize = new \Model\Battlefield\Point($x, $y);
@@ -122,5 +130,54 @@ class Visualizer
         }
         
         return $output;
+    }
+    
+    public function getRowIndexOutput($rowIndex)
+    {
+        $output = $this->beforeNewField;
+        $output .= $rowIndex;
+        $output .= $this->afterNewfield;
+        return $output;
+    }
+    
+    public function getHeaderRowOutput()
+    {
+        $output = $this->beforeNewRow;
+        $battlefieldMaxWidthIndex = $this->battlefield->getFieldMaximumWidthIndex();
+        
+        $output .= $this->beforeNewField;
+        $output .= '&nbsp;';
+        $output .= $this->afterNewfield;
+        
+        for ($x = 0; $x <= $battlefieldMaxWidthIndex; $x++) {
+            $output .= $this->beforeNewField;
+            $output .= $x;
+            $output .= $this->afterNewfield;
+        }
+        $output .= $this->afterNewRow;
+        return $output;
+    }
+    
+    public function getLastShotStatus()
+    {
+        $lastShot = $this->battlefield
+                                ->getShots()
+                                    ->getLastPoint();
+        
+        if (!$lastShot) {
+            return null;
+        }
+        
+        if ($this->battlefield->isPointFree($lastShot)) {
+            return 'miss';
+        } else {
+            // @TODO check for sink
+            if (false) {
+                
+            } else {
+                return 'hit';
+            }
+        }
+        return '@TODO';
     }
 }

@@ -1,5 +1,20 @@
-twig home
+<html>
+    <head>
+        <style>
+            body {
+                font-family: "Courier New", Courier, monospace;
+            }
+        </style>
+    </head>
+    <body>
+        twig home
 
-<br/>
+        <br/>
 
-{{ visualizer.getOutput|raw }}
+        {{ visualizer.getLastShotStatus|raw }}
+
+        <br/>
+
+        {{ visualizer.getFieldOutput|raw }}
+    </body>
+</html>

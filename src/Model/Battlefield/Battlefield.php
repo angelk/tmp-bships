@@ -57,6 +57,7 @@ class Battlefield
     
     public function shoot(Point $shot)
     {
+        // @TODO throw exception on invalid point!
         $this->shots->addPoint($shot);
     }
     

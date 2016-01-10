@@ -55,7 +55,13 @@ class PointCollection implements \Iterator
         
         return false;
     }
-
+    
+    public function getLastPoint()
+    {
+        end($this->points);
+        return current($this->points);
+    }
+    
     public function current()
     {
         return $this->points[$this->iteratorPosition];

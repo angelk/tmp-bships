@@ -30,7 +30,8 @@ $app->get('/', function () use ($app) {
         $battlefield = new \Model\Battlefield\Battlefield(10, 10);
     }
     
-    $visualizer = new \Model\Battlefield\Visualizer\Visualizer($battlefield);
+    $visualizerFactory = new Model\Battlefield\Visualizer\VisualizerFactory();
+    $visualizer = $visualizerFactory->create($battlefield);
     
     $visualizer->setAfterNewRow('<br/>');
     $visualizer->setBeforeNewField('&nbsp;');
@@ -43,7 +44,8 @@ $app->get('/', function () use ($app) {
     );
     
     $battlefield->addBattleShip($placer);
-    $battlefield->shoot(new Model\Battlefield\Point(1, 2));
+    $battlefield->shoot(new Model\Battlefield\Point(1, 1));
+    $battlefield->shoot(new Model\Battlefield\Point(0, 0));
     
     
     return $app['twig']->render(
