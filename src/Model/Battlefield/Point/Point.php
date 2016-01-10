@@ -9,8 +9,8 @@ namespace Model\Battlefield\Point;
  */
 class Point implements PointInterface
 {
-    private $x;
-    private $y;
+    protected $x;
+    protected $y;
     
     public function __construct($x, $y)
     {
