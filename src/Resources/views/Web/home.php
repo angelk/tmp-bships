@@ -11,9 +11,9 @@
 
         <br/>
 
-        {{ visualizer.getLastShotStatus|raw }}
+        <?php echo $this->visualizer->getLastShotStatus(); ?>
 
         <br/>
-        <pre>{{ visualizer.getFieldOutput|raw }}</pre
+        <pre><?php echo $this->visualizer->getFieldOutput(); ?></pre
     </body>
 </html>
