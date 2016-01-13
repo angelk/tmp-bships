@@ -93,13 +93,7 @@ class FrontController
     
     protected function initWeb()
     {
-        $requestMethod = $_SERVER['REQUEST_METHOD'];
-        if ($requestMethod === 'GET') {
-            $this->setController(new Web\IndexController());
-            $this->setAction('home');
-        } elseif ($requestMethod === 'POST') {
-            $this->setController(new Web\IndexController());
-            $this->setMethod('shootAction');
-        }
+        $this->setController(new Web\IndexController());
+        $this->setAction('home');
     }
 }

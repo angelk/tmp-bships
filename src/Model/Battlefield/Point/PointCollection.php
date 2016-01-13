@@ -32,6 +32,7 @@ class PointCollection implements \Iterator
     public function getPointByCoordinates($x, $y)
     {
         foreach ($this as $pointKey => $point) {
+            $a = 'test';
             if ($point->getX() == $x && $point->getY() == $y) {
                 return $point;
             }
@@ -85,16 +86,21 @@ class PointCollection implements \Iterator
     {
         do {
             $this->iteratorPosition++;
-            error_log("checking {$this->iteratorPosition}, valid: " . ($this->valid() ? '1' : '0') ." ");
-            error_log(" " . ($this->current() instanceof CheatPointInterface ? 'instance' : 'not intance') . " ");
-            error_log("current class " . get_class($this->current()) . " \n");
         } while (!(!$this->valid() || !$this->current() instanceof CheatPointInterface));
         // @TODO fix code above!!!
     }
 
     public function rewind()
     {
-        $this->iteratorPosition = 0;
+        foreach ($this->points as $pointKey => $pointvalue) {
+            if ($pointvalue instanceof CheatPointInterface) {
+                continue;
+            }
+            
+            $this->iteratorPosition = $pointKey;
+        }
+        
+        $this->iteratorPosition = -1;
     }
 
     public function valid()

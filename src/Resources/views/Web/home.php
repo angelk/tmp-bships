@@ -7,7 +7,7 @@
         </style>
     </head>
     <body>
-        twig home
+        <?php echo $this->info; ?>
 
         <br/>
 
@@ -15,5 +15,13 @@
 
         <br/>
         <pre><?php echo $this->visualizer->getFieldOutput(); ?></pre
+        
+        <br/>
+        
+        <form method="post" action="">
+            <input type="text" size ="4" name="shot" />
+            <input type="submit" />
+        </form>
+        
     </body>
 </html>
