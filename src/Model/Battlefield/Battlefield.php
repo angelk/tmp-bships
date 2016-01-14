@@ -24,6 +24,8 @@ class Battlefield
     private $fieldWidth;
     private $fieldHeight;
     
+    private $eventDispacher;
+    
     /**
      *
      * @var Placer[]
@@ -47,7 +49,12 @@ class Battlefield
         
         $this->shots = new PointCollection();
     }
-    
+
+    public function setEventDispacher($eventDispacher)
+    {
+        $this->eventDispacher = $eventDispacher;
+    }
+
     public function getFieldMaximumHeightIndex()
     {
         return $this->fieldHeight -1;
@@ -60,8 +67,10 @@ class Battlefield
     
     public function shoot(PointInterface $shot)
     {
+        $event = new \Event\Model\Battlefield\ShootEvent('beforeShoot', $this, $shot);
+        $this->eventDispacher->dispatch($event);
+        
         if ($shot instanceof CheatPointInterface) {
-            $this->shots->addPoint($shot);
             return;
         }
         

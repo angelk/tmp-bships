@@ -11,10 +11,14 @@ use Model\Battlefield\Battlefield;
  */
 class VisualizerFactory
 {
+    private $lastShots = [
+        
+    ];
+    
     public function create(Battlefield $battlefield)
     {
-        $lastShot = $battlefield->getShots()
-                                    ->getLastPoint(false);
+        $battlefieldId = spl_object_hash($battlefield);
+        $lastShot = isset($this->lastShots[$battlefieldId]) ? $this->lastShots[$battlefieldId] : null;
         
         if (!$lastShot) {
             return new Visualizer($battlefield);
@@ -25,5 +29,11 @@ class VisualizerFactory
         }
         
         return new Visualizer($battlefield);
+    }
+    
+    public function setLastShot(Battlefield $battlefield, \Model\Battlefield\Point\PointInterface $shoot)
+    {
+        $battlefieldId = \spl_object_hash($battlefield);
+        $this->lastShots[$battlefieldId] = $shoot;
     }
 }

@@ -31,8 +31,7 @@ class PointCollection implements \Iterator
     
     public function getPointByCoordinates($x, $y)
     {
-        foreach ($this as $pointKey => $point) {
-            $a = 'test';
+        foreach ($this->points as $point) {
             if ($point->getX() == $x && $point->getY() == $y) {
                 return $point;
             }
@@ -43,7 +42,7 @@ class PointCollection implements \Iterator
     
     /**
      * Check if there is point with given coordinates
-     * @param Point $existingPoint
+     * @param Point $pointToCheck
      */
     public function hasPoint(PointInterface $pointToCheck)
     {
@@ -55,16 +54,9 @@ class PointCollection implements \Iterator
         return false;
     }
     
-    public function getLastPoint($real = true)
+    public function getLastPoint()
     {
         end($this->points);
-        while (current($this->points)) {
-            if (!$real || !current($this->points) instanceof CheatPointInterface) {
-                break;
-            }
-            prev($this->points);
-        }
-        
         return current($this->points);
     }
     
@@ -84,23 +76,12 @@ class PointCollection implements \Iterator
 
     public function next()
     {
-        do {
-            $this->iteratorPosition++;
-        } while (!(!$this->valid() || !$this->current() instanceof CheatPointInterface));
-        // @TODO fix code above!!!
+        $this->iteratorPosition++;
     }
 
     public function rewind()
     {
-        foreach ($this->points as $pointKey => $pointvalue) {
-            if ($pointvalue instanceof CheatPointInterface) {
-                continue;
-            }
-            
-            $this->iteratorPosition = $pointKey;
-        }
-        
-        $this->iteratorPosition = -1;
+        $this->iteratorPosition = 0;
     }
 
     public function valid()
@@ -110,12 +91,7 @@ class PointCollection implements \Iterator
     
     public function count()
     {
-        $countOfNonCheatingPoitns = 0;
-        foreach ($this->points as $point) {
-            if (!$point instanceof CheatPoint) {
-                $countOfNonCheatingPoitns++;
-            }
-        }
-        return $countOfNonCheatingPoitns;
+        $count = count($this->points);
+        return $count;
     }
 }

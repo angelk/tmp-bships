@@ -12,7 +12,19 @@ class FrontController
     
     protected $controller;
     protected $action;
-    protected $params = [];
+
+
+    public function __construct()
+    {
+        // cgi could also be called from cli
+        // some additional check will be useful
+        $isCli = php_sapi_name() == 'cli';
+        if ($isCli) {
+            $this->initCli();
+        } else {
+            $this->initWeb();
+        }
+    }
     
     public function getAction()
     {
@@ -30,60 +42,18 @@ class FrontController
         return $methodname;
     }
     
-    public function getTemplateControllerName()
-    {
-        $contollerClass = get_class($this->controller);
-        
-        $contollerClassBase = preg_replace('/^Controller\\\\/', '', $contollerClass);
-        $controllerClassnameExploded = explode('\\', $contollerClassBase);
-        $controllerClassNameBase = $controllerClassnameExploded[0];
-        return $controllerClassNameBase;
-    }
-
-            
-
+    /**
+     *
+     * @return AbstractController
+     */
     public function getController()
     {
         return $this->controller;
     }
     
-    public function setController($controller)
+    public function setController(AbstractController $controller)
     {
         $this->controller = $controller;
-    }
-
-    public function run()
-    {
-        $this->init();
-        
-        $response = call_user_func_array(
-            [
-                $this->controller,
-                $this->getMethod(),
-            ],
-            $this->params
-        );
-        
-        $templatePath = __DIR__ . '/../Resources/views/' . $this->getTemplateControllerName() . '/' . $this->action . '.php';
-        $view = new \View\View($templatePath);
-        $view->setParams($response);
-        
-        echo $view->render();
-        
-    }
-    
-    protected function init()
-    {
-        // cgi could also be called from cli
-        // some additional check will be useful
-        $isCli = php_sapi_name() == 'cli';
-        if ($isCli) {
-            $this->initCli();
-        } else {
-            $this->initWeb();
-        }
-        
-        
     }
     
     protected function initCli()

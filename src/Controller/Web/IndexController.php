@@ -7,7 +7,7 @@ namespace Controller\Web;
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
-class IndexController
+class IndexController extends \Controller\AbstractController
 {
     public function homeAction()
     {
@@ -24,10 +24,9 @@ class IndexController
             );
             $battlefield->addBattleShip($placer);
             $_SESSION['battleship.progress'] = serialize($battlefield);
-
         }
-
-        $visualizerFactory = new \Model\Battlefield\Visualizer\VisualizerFactory();
+        
+        $battlefield->setEventDispacher($this->getEventDispacher());
 
         if (!empty($_POST)) {
             $shotData = $_POST['shot'];
@@ -41,11 +40,11 @@ class IndexController
             }
         }
         
-        $visualizer = $visualizerFactory->create($battlefield);
+        $visualizer = $this->getVisualizerFactory()->create($battlefield);
 
         return [
             'visualizer' => $visualizer,
             'info' => $info,
         ];
-    }   
- }
+    }
+}

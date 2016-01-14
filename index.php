@@ -18,5 +18,5 @@ spl_autoload_register(function ($name) {
 // @TODO error handler
 // @TODO exception handler
 
-$frontController = new \Controller\FrontController();
-$frontController->run();
+$app = new \Application\Application();
+$app->run();
