@@ -4,15 +4,14 @@ php:
   - 5.6
   - 7.0
 before_script:
-  - pyrus install pear/PHP_CodeSniffer
-  - phpenv rehash
 
 script:
     - cd Test/Phpunit
     - composer install
     - vendor/bin/phpunit
     - cd ../codeSniffer
-    - phpcs
+    - composer install
+    - vendor/bin/phpcs
 
 matrix:
     allow_failures:

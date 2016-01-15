@@ -3,4 +3,3 @@
 vendor
 
 /Test/Phpunit/codeCoverageLog/
-/Test/Phpunit/composer.lock
