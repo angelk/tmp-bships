@@ -73,7 +73,7 @@ class Visualizer implements VisualizerInterface
     
     public function getRowIndexOutput($rowIndex)
     {
-        $output = $rowIndex . ' ';
+        $output = chr($rowIndex + 65) . ' ';
         return $output;
     }
     
@@ -84,7 +84,7 @@ class Visualizer implements VisualizerInterface
         $output = '  ';
         
         for ($x = 0; $x <= $battlefieldMaxWidthIndex; $x++) {
-            $output .= $x . ' ';
+            $output .= ($x + 1) . ' ';
         }
         return $output;
     }
