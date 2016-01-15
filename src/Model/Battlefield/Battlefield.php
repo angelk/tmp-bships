@@ -55,6 +55,16 @@ class Battlefield
         $this->eventDispacher = $eventDispacher;
     }
 
+    protected function dispatch($event)
+    {
+        if (!$this->eventDispacher) {
+            return false;
+        }
+        
+        
+        $this->eventDispacher->dispatch($event);
+    }
+    
     public function getFieldMaximumHeightIndex()
     {
         return $this->fieldHeight -1;
@@ -68,7 +78,7 @@ class Battlefield
     public function shoot(PointInterface $shot)
     {
         $event = new \Event\Model\Battlefield\ShootEvent('beforeShoot', $this, $shot);
-        $this->eventDispacher->dispatch($event);
+        $this->dispatch($event);
         
         if ($shot instanceof CheatPointInterface) {
             return;
