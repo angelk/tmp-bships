@@ -16,13 +16,14 @@ class IndexController extends \Controller\AbstractController
         if ($savedData) {
             $battlefield = unserialize($savedData);
         } else {
-            $battlefield = new \Model\Battlefield\Battlefield(10, 10);
-            $placer = new \Model\Battlefield\Placer(
-                new \Model\Battleship\Destroyer(),
-                new \Model\Battlefield\Point\Point(1, 2),
-                new \Model\Battlefield\Point\Point(1, 6)
+            $battlefieldFactory = new \Model\Battlefield\BattlefieldFactory();
+            $battlefield = $battlefieldFactory->createBattleField(
+                [
+                    new \Model\Battleship\Battleship(),
+                    new \Model\Battleship\Destroyer(),
+                    new \Model\Battleship\Destroyer(),
+                ]
             );
-            $battlefield->addBattleShip($placer);
             $_SESSION['battleship.progress'] = serialize($battlefield);
         }
         

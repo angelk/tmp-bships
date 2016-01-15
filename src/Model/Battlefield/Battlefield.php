@@ -117,14 +117,14 @@ class Battlefield
                 for ($i = 0; $i < $battleshipSize; $i++) {
                     if ($horizontalValidation) {
                         $pointToCheck = new Point($xIndex + $i, $yIndex);
-                        if (!$this->isPointValid($pointToCheck)) {
+                        if (!$this->isPointFree($pointToCheck)) {
                             $horizontalValidation = false;
                         }
                     }
                     
                     if ($verticalValidation) {
                         $pointToCheck = new Point($xIndex, $yIndex + $i);
-                        if (!$this->isPointValid($pointToCheck)) {
+                        if (!$this->isPointFree($pointToCheck)) {
                             $verticalValidation = false;
                         }
                     }
