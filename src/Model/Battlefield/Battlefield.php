@@ -88,6 +88,8 @@ class Battlefield
             throw new Exception\HumanReadableException("Invlid point");
         }
         $this->shots->addPoint($shot);
+        $afterShootEvent = new \Event\Model\Battlefield\ShootEvent('afterShoot', $this, $shot);
+        $this->dispatch($afterShootEvent);
     }
     
     public function getShots()
@@ -211,5 +213,18 @@ class Battlefield
         }
         
         return self::POINT_STATUS_NO_SHOT;
+    }
+    
+    public function isThereNonSinkedBattleship()
+    {
+        foreach ($this->placers as $placer) {
+            foreach ($placer->getPoints() as $placerPoint) {
+                if (!$this->shots->hasPoint($placerPoint)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 }

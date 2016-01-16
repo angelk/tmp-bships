@@ -22,7 +22,7 @@ class IndexController extends \Controller\AbstractController
         
         $battlefield->setEventDispacher($this->getEventDispacher());
         
-        while (true) {
+        while ($battlefield->isThereNonSinkedBattleship()) {
             $visualizer = $this->getVisualizerFactory()->create($battlefield);
             echo PHP_EOL . $visualizer->getFieldOutput(). PHP_EOL;
             $shot = null;
@@ -32,13 +32,14 @@ class IndexController extends \Controller\AbstractController
                 $coordinates = trim(fgets(STDIN));
                 try {
                     $shot = $pointFactory->createPoint($coordinates);
+                    $battlefield->shoot($shot);
                 } catch (\Exception $e) {
                     echo "Error. ". $e->getMessage() . PHP_EOL;
                 }
             }
-            $battlefield->shoot($shot);
         }
-            
+        
+        echo "Game completed in " . $battlefield->getShots()->count() . ' shots' . PHP_EOL;
         return [];
     }
 }

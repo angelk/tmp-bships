@@ -21,6 +21,7 @@ class ShootSubscriber implements \EventDispatcher\EventSubscriberInterface
     {
         return [
             'beforeShoot' => 'beforeShoot',
+            'afterShoot' => 'afterShoot',
         ];
     }
     
@@ -29,5 +30,10 @@ class ShootSubscriber implements \EventDispatcher\EventSubscriberInterface
         if ($event instanceof ShootEvent) {
             $this->visualizerFactory->setLastShot($event->getBattlefield(), $event->getShoot());
         }
+    }
+    
+    public function afterShoot($event)
+    {
+        
     }
 }
