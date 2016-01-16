@@ -10,6 +10,7 @@ namespace Controller;
 class FrontController
 {
     
+    protected $viewEnabled = true;
     protected $controller;
     protected $action;
 
@@ -26,6 +27,11 @@ class FrontController
         }
     }
     
+    public function getViewEnabled()
+    {
+        return $this->viewEnabled;
+    }
+
     public function getAction()
     {
         return $this->action;
@@ -58,7 +64,9 @@ class FrontController
     
     protected function initCli()
     {
-        throw new \Exception('not implemented');
+        $this->viewEnabled = false;
+        $this->setController(new Cli\IndexController());
+        $this->setAction('home');
     }
     
     protected function initWeb()

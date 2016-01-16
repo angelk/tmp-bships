@@ -39,12 +39,15 @@ class Application
             []
         );
         
-        $templatePath = __DIR__ . '/../Resources/views/' . $this->getTemplateControllerName();
-        $templatePath .= '/' . $this->frontController->getAction() . '.php';
-        $view = new \View\View($templatePath);
-        $view->setParams($response);
-        
-        echo $view->render();
+        if ($this->frontController->getViewEnabled()) {
+            $templatePath = __DIR__ . '/../Resources/views/' . $this->getTemplateControllerName();
+            $templatePath .= '/' . $this->frontController->getAction() . '.php';
+            $view = new \View\View($templatePath);
+            $view->setParams($response);
+            echo $view->render();
+        } else {
+            return $response;
+        }
     }
     
     public function getTemplateControllerName()

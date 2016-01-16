@@ -18,6 +18,9 @@ class AbstractController
         
     }
 
+    /**
+     * @return \Model\Battlefield\Visualizer\VisualizerFactory
+     */
     public function getVisualizerFactory()
     {
         return $this->visualizerFactory;
