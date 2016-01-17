@@ -9,9 +9,21 @@ namespace Model\Battlefield\Point;
 interface PointInterface
 {
 
+    /**
+     * Get x-axis
+     * @return int
+     */
     public function getX();
 
+    /**
+     * get y-axis
+     * @return int
+     */
     public function getY();
 
-    public function isSameAs(Point $point);
+    /**
+     * Check if two points are identical
+     * @param PointInterface $point
+     */
+    public function isSameAs(PointInterface $point);
 }

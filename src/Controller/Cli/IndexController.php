@@ -6,7 +6,7 @@ use Model\Battlefield\BattlefieldFactory;
 use Model\Battlefield\Battlefield;
 
 /**
- * Description of IndexController
+ * IndexController
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
@@ -20,7 +20,7 @@ class IndexController extends \Controller\AbstractController
         
         $newGame = true;
         
-        do {
+        while (true) {
             $this->playGame($battlefield);
             echo "Game completed in {$battlefield->getShots()->count()} shots" . PHP_EOL;
             
@@ -30,17 +30,22 @@ class IndexController extends \Controller\AbstractController
                 $newGame = trim(fgets(STDIN));
             }
             
-        } while ($newGame === 'y');
+            if ($newGame === 'n') {
+                break;
+            }
+        };
         
         return 0;
     }
         
     /**
+     * Force user to complete the game
      * @param Battlefield $battlefield
      */
     protected function playGame(Battlefield $battlefield)
     {
         while ($battlefield->isThereNonSunkBattleship()) {
+            echo PHP_EOL . PHP_EOL;
             $visualizer = $this->getVisualizerFactory()->create($battlefield);
             if (($lastShotStatus = $visualizer->getLastShotStatus())) {
                 echo $lastShotStatus . PHP_EOL;
@@ -51,6 +56,7 @@ class IndexController extends \Controller\AbstractController
     }
     
     /**
+     * Force user to enter valid point
      * @param Battlefield $battlefield
      * @return \Model\Battlefield\Point\PointInterface
      */

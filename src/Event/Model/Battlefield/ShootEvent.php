@@ -2,6 +2,9 @@
 
 namespace Event\Model\Battlefield;
 
+use Model\Battlefield\Battlefield;
+use Model\Battlefield\Point\PointInterface;
+
 /**
  * Used to hook drurin shoot event
  *
@@ -19,11 +22,17 @@ class ShootEvent extends \EventDispatcher\Event
         $this->shoot = $shoot;
     }
     
+    /**
+     * @return Battlefield
+     */
     public function getBattlefield()
     {
         return $this->battlefield;
     }
 
+    /**
+     * @return PointInterface
+     */
     public function getShoot()
     {
         return $this->shoot;

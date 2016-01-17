@@ -3,14 +3,17 @@
 namespace EventDispatcher;
 
 /**
- * Description of EventDispatcher
+ * EventDispatcher
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
 class EventDispatcher implements EventDispacherInterface
 {
     protected $listeners = [];
-    
+   
+    /**
+     * @inheritdoc
+     */
     public function dispatch(Event $event)
     {
         if (isset($this->listeners[$event->getName()])) {
@@ -25,6 +28,9 @@ class EventDispatcher implements EventDispacherInterface
         $this->listeners[$eventName][] = $listener;
     }
     
+    /**
+     * @inheritdoc
+     */
     public function addSubscriber(EventSubscriberInterface $subscriber)
     {
         foreach ($subscriber->getSubscribedEvents() as $eventName => $method) {

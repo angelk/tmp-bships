@@ -15,8 +15,10 @@ interface DataSaverInterface
      */
     public function save($data, $name);
     /**
-     * Retrieve data
+     * Retrieve data.
+     * False is returned when there is no data.
      * @param string $name
+     * @return mixed|false
      */
     public function load($name);
     /**

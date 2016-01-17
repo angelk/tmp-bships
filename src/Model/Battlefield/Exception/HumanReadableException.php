@@ -5,7 +5,7 @@ namespace Model\Battlefield\Exception;
 use Exception\HumanReadableInterface;
 
 /**
- * Description of HumanReadableException
+ * HumanReadableException
  *
  * @author po_taka
  */

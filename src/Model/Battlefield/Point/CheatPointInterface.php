@@ -8,5 +8,5 @@ namespace Model\Battlefield\Point;
  */
 interface CheatPointInterface
 {
-    //put your code here
+
 }

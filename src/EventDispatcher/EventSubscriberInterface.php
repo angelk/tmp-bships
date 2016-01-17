@@ -4,9 +4,12 @@ namespace EventDispatcher;
 
 /**
  *
- * @author potaka
+ * @author po_taka
  */
 interface EventSubscriberInterface
 {
+    /**
+     * @return array
+     */
     public static function getSubscribedEvents();
 }

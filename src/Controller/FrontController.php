@@ -5,7 +5,7 @@ namespace Controller;
 use Controller\AbstractController;
 
 /**
- * Description of FrontController
+ * FrontController
  *
  * @author po_taka <angel.koilov@gmail.com>
  */

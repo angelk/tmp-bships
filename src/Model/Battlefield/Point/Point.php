@@ -31,17 +31,26 @@ class Point implements PointInterface
         $this->y = $y;
     }
     
+    /**
+     * @inheritdoc
+     */
     public function getX()
     {
         return $this->x;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getY()
     {
         return $this->y;
     }
     
-    public function isSameAs(Point $point)
+    /**
+     * @inheritdoc
+     */
+    public function isSameAs(PointInterface $point)
     {
         if ($point->getX() === $this->getX() && $point->getY() === $this->getY()) {
             return true;

@@ -20,7 +20,7 @@ class CheatPoint implements PointInterface, CheatPointInterface
         throw new \Model\Exception\Exception("Method not allowed");
     }
 
-    public function isSameAs(Point $point)
+    public function isSameAs(PointInterface $point)
     {
         throw new \Model\Exception\Exception("Method not allowed");
     }
