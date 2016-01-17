@@ -102,13 +102,31 @@ class Visualizer implements VisualizerInterface
         if ($this->battlefield->isPointFree($lastShot)) {
             return 'miss';
         } else {
-            // @TODO check for sink
-            if (false) {
-                
+            $sink = false;
+            foreach ($this->battlefield->getPlacers() as $placer) {
+                $placerPoints = $placer->getPoints();
+                if ($placerPoints->hasPoint($lastShot)) {
+                    // check for sink
+                    
+                    $sinking = true;
+                    foreach ($placerPoints as $battleshipPoint) {
+                        if (Battlefield::POINT_STATUS_SHIP_HIT !== $this->battlefield->getPointStatus($battleshipPoint)) {
+                            $sinking = false;
+                            break;
+                        }
+                    }
+                    
+                    if ($sinking) {
+                        $sink = true;
+                    }
+                    break;
+                }
+            }
+            if ($sink) {
+                return 'sink';
             } else {
                 return 'hit';
             }
         }
-        return '@TODO';
     }
 }

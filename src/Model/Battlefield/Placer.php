@@ -56,6 +56,9 @@ class Placer
         return $this->endPoint;
     }
     
+    /**
+     * @return \Model\Battlefield\Point\PointCollection
+     */
     public function getPoints()
     {
         $startX = $this->getStartPoint()->getX();
@@ -66,14 +69,14 @@ class Placer
          * Horizontal placement
          */
         
-        $return = [];
+        $return = new Point\PointCollection();
         if ($startY == $endY) {
             for ($i = $startX; $i <= $endX; $i++) {
-                $return[] = new Point\Point($i, $startY);
+                $return->addPoint(new Point\Point($i, $startY));
             }
         } else {
             for ($i = $startY; $i <= $endY; $i++) {
-                $return[] = new Point\Point($startX, $i);
+                $return->addPoint(new Point\Point($startX, $i));
             }
         }
         

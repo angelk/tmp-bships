@@ -7,11 +7,7 @@
         </style>
     </head>
     <body>
-        <?php echo $this->info; ?>
-
-        <br/>
-
-        <?php echo $this->visualizer->getLastShotStatus(); ?>
+        <?php echo ($this->info ?: $this->visualizer->getLastShotStatus()); ?>
 
         <br/>
         <pre><?php echo $this->visualizer->getFieldOutput(); ?></pre

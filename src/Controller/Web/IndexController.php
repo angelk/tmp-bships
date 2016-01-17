@@ -37,7 +37,11 @@ class IndexController extends \Controller\AbstractController
                 $battlefield->shoot($point);
                 $_SESSION['battleship.progress'] = serialize($battlefield);
             } catch (\Model\Battlefield\Exception\HumanReadableException $e) {
-                $info = $e->getMessage();
+                if ($e instanceof \Model\Exception\HumanReadableInterface) {
+                    $info = $e->getMessage();
+                } else {
+                    $info = 'error';
+                }
             }
         }
         

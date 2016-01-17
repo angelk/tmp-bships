@@ -54,6 +54,14 @@ class Battlefield
     {
         $this->eventDispacher = $eventDispacher;
     }
+    
+    /**
+     * @return Placer[]
+     */
+    public function getPlacers()
+    {
+        return $this->placers;
+    }
 
     protected function dispatch($event)
     {
@@ -215,6 +223,10 @@ class Battlefield
         return self::POINT_STATUS_NO_SHOT;
     }
     
+    /**
+     * Used to check if game should end
+     * @return boolean
+     */
     public function isThereNonSinkedBattleship()
     {
         foreach ($this->placers as $placer) {
