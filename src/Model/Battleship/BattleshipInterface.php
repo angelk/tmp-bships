@@ -8,5 +8,9 @@ namespace Model\Battleship;
  */
 interface BattleshipInterface
 {
+    /**
+     * Get point needed to place battleship
+     * @return int
+     */
     public function getSize();
 }

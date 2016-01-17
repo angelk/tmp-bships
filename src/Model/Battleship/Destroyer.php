@@ -3,7 +3,7 @@
 namespace Model\Battleship;
 
 /**
- * Description of Destroyer
+ * Destroyer
  *
  * @author po_taka <angel.koilov@gmail.com>
  */

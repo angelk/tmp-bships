@@ -6,16 +6,30 @@ use Model\Battleship\BattleshipInterface;
 use Model\Battlefield\Point\PointInterface;
 
 /**
- * Description of Placer
+ * Used to add battleship to battlefield
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
 class Placer
 {
+    /**
+     * @var BattleshipInterface
+     */
     private $battleship;
+    /**
+     * @var PointInterface
+     */
     private $startPoint;
+    /**
+     * @var PointInterface
+     */
     private $endPoint;
     
+    /**
+     * @param BattleshipInterface $battleship
+     * @param PointInterface $start
+     * @param PointInterface $end
+     */
     public function __construct(BattleshipInterface $battleship, PointInterface $start, PointInterface $end)
     {
         /*
@@ -35,6 +49,9 @@ class Placer
         $this->endPoint = $end;
     }
     
+    /**
+     * @return BattleshipInterface
+     */
     public function getBattleship()
     {
         return $this->battleship;
@@ -57,6 +74,10 @@ class Placer
     }
     
     /**
+     * Get all point used by palcer.
+     *
+     * Placer with points [0.0] : [0.2]
+     * have points [0.0], [0.1], [0.2]
      * @return \Model\Battlefield\Point\PointCollection
      */
     public function getPoints()

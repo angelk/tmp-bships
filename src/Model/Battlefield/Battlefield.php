@@ -8,6 +8,7 @@ use Model\Battlefield\Point\Point;
 use Model\Battlefield\Placer;
 use Model\Battlefield\Point\PointCollection;
 use Model\Battleship\BattleshipInterface;
+use EventDispatcher\EventDispacherInterface;
 
 /**
  * Description of Battlefield
@@ -24,6 +25,10 @@ class Battlefield
     private $fieldWidth;
     private $fieldHeight;
     
+    /**
+     *
+     * @var EventDispacherInterface|Null
+     */
     private $eventDispacher;
     
     /**
@@ -50,7 +55,10 @@ class Battlefield
         $this->shots = new PointCollection();
     }
 
-    public function setEventDispacher($eventDispacher)
+    /**
+     * @param EventDispacherInterface $eventDispacher
+     */
+    public function setEventDispacher(EventDispacherInterface $eventDispacher)
     {
         $this->eventDispacher = $eventDispacher;
     }
@@ -63,33 +71,50 @@ class Battlefield
         return $this->placers;
     }
 
+    /**
+     * If dispatch is set, then dispatch event
+     * @param \EventDispatcher\Event $event
+     * @return boolean
+     */
     protected function dispatch($event)
     {
         if (!$this->eventDispacher) {
             return false;
         }
         
-        
         $this->eventDispacher->dispatch($event);
     }
     
+    /**
+     * maximum height index. Start form zero
+     * @return int
+     */
     public function getFieldMaximumHeightIndex()
     {
         return $this->fieldHeight -1;
     }
     
+    /**
+     * maximum width index. Start form zero
+     * @return type
+     */
     public function getFieldMaximumWidthIndex()
     {
         return $this->fieldWidth -1;
     }
     
+    /**
+     * Add point to shoot
+     * @param PointInterface $shot
+     * @return self
+     */
     public function shoot(PointInterface $shot)
     {
         $event = new \Event\Model\Battlefield\ShootEvent('beforeShoot', $this, $shot);
         $this->dispatch($event);
         
         if ($shot instanceof CheatPointInterface) {
-            return;
+            return $this;
         }
         
         if (!$this->isPointValid($shot)) {
@@ -98,17 +123,23 @@ class Battlefield
         $this->shots->addPoint($shot);
         $afterShootEvent = new \Event\Model\Battlefield\ShootEvent('afterShoot', $this, $shot);
         $this->dispatch($afterShootEvent);
+        
+        return $this;
     }
     
+    /**
+     * @return PointCollection
+     */
     public function getShots()
     {
         return $this->shots;
     }
 
     /**
+     * Place new battleship on the field
      * @param Placer $placer
      */
-    public function addBattleShip(Placer $placer)
+    public function addBattleship(Placer $placer)
     {
         if ($this->shots->count()) {
             throw new Exception\Exception("Can\'t add placers. There are shoots!");
@@ -116,6 +147,11 @@ class Battlefield
         $this->placers[] = $placer;
     }
     
+    /**
+     * Get available placers for battleship
+     * @param BattleshipInterface $battleship
+     * @return Placer[]
+     */
     public function getValidPlaces(BattleshipInterface $battleship)
     {
         $potentialPlacements = [];
@@ -165,6 +201,11 @@ class Battlefield
         return $potentialPlacements;
     }
     
+    /**
+     * Check if point is valid for battlefield
+     * @param PointInterface $point
+     * @return boolean
+     */
     public function isPointValid(PointInterface $point)
     {
         $pointX = $point->getX();
@@ -180,10 +221,14 @@ class Battlefield
         return true;
     }
     
+    /**
+     * Check if point already have palced battleship
+     * @param PointInterface $point
+     * @return boolean
+     */
     public function isPointFree(PointInterface $point)
     {
         if (!$this->isPointValid($point)) {
-            // should I throw exception ?
             return false;
         }
         
@@ -199,6 +244,11 @@ class Battlefield
         return true;
     }
     
+    /**
+     * Get point status - miss, no shot, hit ... etc
+     * @param PointInterface $point
+     * @return int
+     */
     public function getPointStatus(PointInterface $point)
     {
         if (!$this->isPointValid($point)) {

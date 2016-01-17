@@ -9,6 +9,14 @@ namespace Model\Battlefield;
  */
 class BattlefieldFactory
 {
+    /**
+     * Create battlefield with specific size.
+     * Randomly place given battleships
+     * @param array $battleships battleships to place
+     * @param int $sizeX Field x size
+     * @param int $sizeY Field y size
+     * @return \Model\Battlefield\Battlefield
+     */
     public function createBattlefield(array $battleships = [], $sizeX = 10, $sizeY = 10)
     {
         $battlefield = new Battlefield($sizeX, $sizeY);
@@ -16,12 +24,16 @@ class BattlefieldFactory
             $validPlacers = $battlefield->getValidPlaces($battleship);
             $randomPlacerKey = array_rand($validPlacers);
             $randomPlacer = $validPlacers[$randomPlacerKey];
-            $battlefield->addBattleShip($randomPlacer);
+            $battlefield->addBattleship($randomPlacer);
         }
         
         return $battlefield;
     }
-    
+
+    /**
+     * Create Battlefield[10x10] with one battleship and two destroyers
+     * @return type
+     */
     public function createDefaultBattlefield()
     {
         $battlefield = $this->createBattleField(

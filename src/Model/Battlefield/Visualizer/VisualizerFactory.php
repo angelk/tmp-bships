@@ -12,9 +12,11 @@ use Model\Battlefield\Point\PointInterface;
  */
 class VisualizerFactory
 {
-    private $lastShots = [
-        
-    ];
+    /**
+     * Save last shot for specific battlefield
+     * @var Array
+     */
+    private $lastShots = [];
     
     /**
      * Create visualizer based on battlefield

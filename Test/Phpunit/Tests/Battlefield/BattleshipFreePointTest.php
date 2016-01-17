@@ -23,7 +23,7 @@ class BattleshipFreePointTest extends \PHPUnit_Framework_TestCase
             new Point(0, 0),
             new Point(0, 4)
         );
-        $field->addBattleShip($placer);
+        $field->addBattleship($placer);
         
         $validPoints = [
             new Point(5, 0),

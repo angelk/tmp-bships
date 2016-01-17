@@ -13,6 +13,7 @@ interface VisualizerInterface
      * @return string
      */
     public function getFieldOutput();
+
     /**
      * Get last shot status - miss, hit, etc
      */
