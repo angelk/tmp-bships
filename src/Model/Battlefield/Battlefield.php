@@ -121,8 +121,6 @@ class Battlefield
             throw new Exception\HumanReadableException("Invlid point");
         }
         $this->shots->addPoint($shot);
-        $afterShootEvent = new \Event\Model\Battlefield\ShootEvent('afterShoot', $this, $shot);
-        $this->dispatch($afterShootEvent);
         
         return $this;
     }
