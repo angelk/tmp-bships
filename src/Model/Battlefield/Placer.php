@@ -47,6 +47,10 @@ class Placer
         $this->battleship = $battleship;
         $this->startPoint = $start;
         $this->endPoint = $end;
+        
+        if ($this->getPoints()->count() !== $battleship->getSize()) {
+            throw new Exception\Exception('Can\'t fit battleship in placer');
+        }
     }
     
     /**
