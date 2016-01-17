@@ -24,6 +24,9 @@ class IndexController extends \Controller\AbstractController
         
         while ($battlefield->isThereNonSinkedBattleship()) {
             $visualizer = $this->getVisualizerFactory()->create($battlefield);
+            if (($lastShotStatus = $visualizer->getLastShotStatus())) {
+                echo $lastShotStatus . PHP_EOL;
+            }
             echo PHP_EOL . $visualizer->getFieldOutput(). PHP_EOL;
             $shot = null;
             $pointFactory = new \Model\Battlefield\Point\PointFactory();
