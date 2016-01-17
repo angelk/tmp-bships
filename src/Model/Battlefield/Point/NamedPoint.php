@@ -5,7 +5,7 @@ namespace Model\Battlefield\Point;
 use Model\Battlefield\Exception\HumanReadableException;
 
 /**
- * Description of NamedPoint
+ * Create point with names like "A1", "b2"
  *
  * @author po_taka
  */

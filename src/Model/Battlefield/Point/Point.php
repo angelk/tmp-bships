@@ -2,8 +2,10 @@
 
 namespace Model\Battlefield\Point;
 
+use Exception\Exception;
+
 /**
- * Description of Point
+ * Create poits with coordinates, e.g. [0,1]
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
@@ -12,11 +14,16 @@ class Point implements PointInterface
     protected $x;
     protected $y;
     
+    /**
+     * @param int $x
+     * @param int $y
+     * @throws \Exception
+     */
     public function __construct($x, $y)
     {
         foreach (func_get_args() as $arg) {
             if (!is_int($arg)) {
-                throw new \Exception("{$arg} should be 'int'");
+                throw new Exception("{$arg} should be 'int'");
             }
         }
         
