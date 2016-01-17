@@ -19,7 +19,7 @@ class NamedPoint extends Point
     {
         $matches = [];
         if (!preg_match('/^(?<name>[a-z]{1})(?<number>[0-9]+)$/im', $name, $matches)) {
-            throw new HumanReadableException("Foramt for point should be like A1");
+            throw new HumanReadableException("Format for point is 'A1'");
         }
         
         $name = $matches['name'];
@@ -28,12 +28,7 @@ class NamedPoint extends Point
         $numberCoordinate = $number - 1;
         
         $aCode = ord('a');
-        $zCode = ord('z');
         $nameCode = ord($nameLower);
-        
-        if ($nameCode > $zCode || $nameCode < $aCode) {
-            throw new HumanReadableException("First letter of point must be betwee 'a' and 'z'");
-        }
         
         $nameCoordinate = $nameCode - $aCode;
         
