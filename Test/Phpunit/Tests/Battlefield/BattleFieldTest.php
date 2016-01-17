@@ -4,6 +4,9 @@ namespace Test\PhpUnit\Battlefield\Tests\Battlefield;
 
 use Model\Battlefield\Battlefield;
 use Model\Battlefield\Point\Point;
+use Model\Battlefield\Point\CheatPoint;
+use Model\Battlefield\Placer;
+use Model\Battleship\Destroyer;
 
 /**
  * Description of BattleField
@@ -53,5 +56,27 @@ class BattleFieldTest extends \PHPUnit_Framework_TestCase
         $battlefield = new Battlefield(3, 3);
         $shot = new Point(2, 2);
         $battlefield->shoot($shot);
+    }
+    
+    public function testAddCheatPoint()
+    {
+        $battlefield = new Battlefield(5, 5);
+        $battlefield->shoot(new CheatPoint());
+        $this->assertSame(0, $battlefield->getShots()->count());
+    }
+    
+    public function testBattleshipAddingAfterShoot()
+    {
+        $this->setExpectedException(\Model\Battlefield\Exception\Exception::class);
+        
+        $battlefield = new Battlefield(5, 5);
+        $battlefield->shoot(new Point(0, 0));
+        $battlefield->addBattleship(
+            new Placer(
+                new Destroyer,
+                new Point(0, 0),
+                new Point(0, 3)
+            )
+        );
     }
 }
