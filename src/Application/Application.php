@@ -9,7 +9,7 @@ use DataSaver\SessionDataSaver;
 use Model\Battlefield\Visualizer\VisualizerFactory;
 
 /**
- * Description of Application
+ * Application
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
@@ -19,8 +19,8 @@ class Application
      * @var EventDispatcher
      */
     protected $eventDispacher;
+    
     /**
-     *
      * @var FrontController
      */
     protected $frontController;
@@ -57,7 +57,8 @@ class Application
             if ($this->frontController->getController()->getTemplate()) {
                 $templateName = $this->frontController->getController()->getTemplate();
             } else {
-                $templateName =  $this->getTemplateControllerName() . DIRECTORY_SEPARATOR . $this->frontController->getAction();
+                $templateName =  $this->getTemplateControllerName()
+                        . DIRECTORY_SEPARATOR . $this->frontController->getAction();
             }
             $templatePath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
                     . 'Resources' . DIRECTORY_SEPARATOR
