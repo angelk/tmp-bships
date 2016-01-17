@@ -106,8 +106,6 @@ class Visualizer implements VisualizerInterface
             foreach ($this->battlefield->getPlacers() as $placer) {
                 $placerPoints = $placer->getPoints();
                 if ($placerPoints->hasPoint($lastShot)) {
-                    // check for sink
-                    
                     $sinking = true;
                     foreach ($placerPoints as $battleshipPoint) {
                         if (Battlefield::POINT_STATUS_SHIP_HIT !== $this->battlefield->getPointStatus($battleshipPoint)) {
