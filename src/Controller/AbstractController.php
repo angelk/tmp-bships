@@ -3,6 +3,8 @@
 namespace Controller;
 
 use DataSaver\DataSaverInterface;
+use EventDispatcher\EventDispacherInterface;
+use Model\Battlefield\Visualizer\VisualizerFactory;
 
 /**
  * Description of AbstractController
@@ -11,19 +13,22 @@ use DataSaver\DataSaverInterface;
  */
 class AbstractController
 {
+    /**
+     * @var EventDispacherInterface
+     */
     private $eventDispacher;
     private $visualizerFactory;
     private $dataSaver;
     private $template;
     
-    public function setEventDispacher(\EventDispatcher\EventDispacherInterface $eventDispacher)
+    public function setEventDispacher(EventDispacherInterface $eventDispacher)
     {
         $this->eventDispacher = $eventDispacher;
         
     }
 
     /**
-     * @return \Model\Battlefield\Visualizer\VisualizerFactory
+     * @return VisualizerFactory
      */
     public function getVisualizerFactory()
     {
@@ -45,7 +50,7 @@ class AbstractController
         return $this->eventDispacher;
     }
 
-    public function setVisualizerFactory(\Model\Battlefield\Visualizer\VisualizerFactory $visualizerFactory)
+    public function setVisualizerFactory(VisualizerFactory $visualizerFactory)
     {
         $this->visualizerFactory = $visualizerFactory;
     }

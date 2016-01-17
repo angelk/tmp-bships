@@ -12,13 +12,23 @@ use Model\Battlefield\Point\Point;
  */
 class Visualizer implements VisualizerInterface
 {
+    /**
+     *
+     * @var Battlefield
+     */
     private $battlefield;
 
+    /**
+     * @param Battlefield $battlefield
+     */
     public function __construct(Battlefield $battlefield)
     {
         $this->battlefield = $battlefield;
     }
     
+    /**
+     * @return Battlefield
+     */
     public function getBattlefield()
     {
         return $this->battlefield;
@@ -48,10 +58,6 @@ class Visualizer implements VisualizerInterface
     
     public function getFieldOutput()
     {
-        /*
-         * Maybe I don't need cli and html visualizers.
-         * <pre> will do the work
-         */
         $battlefieldMaxWidthIndex = $this->battlefield->getFieldMaximumWidthIndex();
         $battlefieldMaxHeightIndex = $this->battlefield->getFieldMaximumHeightIndex();
         

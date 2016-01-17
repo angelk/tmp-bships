@@ -3,6 +3,7 @@
 namespace Model\Battlefield\Visualizer;
 
 use Model\Battlefield\Battlefield;
+use Model\Battlefield\Point\PointInterface;
 
 /**
  * Description of VisualizerFactory
@@ -15,6 +16,11 @@ class VisualizerFactory
         
     ];
     
+    /**
+     * Create visualizer based on battlefield
+     * @param Battlefield $battlefield
+     * @return VisualizerInterface
+     */
     public function create(Battlefield $battlefield)
     {
         $battlefieldId = spl_object_hash($battlefield);
@@ -31,7 +37,13 @@ class VisualizerFactory
         return new Visualizer($battlefield);
     }
     
-    public function setLastShot(Battlefield $battlefield, \Model\Battlefield\Point\PointInterface $shoot)
+    /**
+     * Store last shoot info.
+     * Used to create visualizerChaet for cheat shots.
+     * @param Battlefield $battlefield
+     * @param PointInterface $shoot
+     */
+    public function setLastShot(Battlefield $battlefield, PointInterface $shoot)
     {
         $battlefieldId = \spl_object_hash($battlefield);
         $this->lastShots[$battlefieldId] = $shoot;

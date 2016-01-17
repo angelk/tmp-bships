@@ -5,7 +5,7 @@ namespace Model\Battlefield\Visualizer;
 use Model\Battlefield\Battlefield;
 
 /**
- * Description of VisualizerCheat
+ * Used to visualize cheat shot
  *
  * @author po_taka <angel.koilov@gmail.com>
  */

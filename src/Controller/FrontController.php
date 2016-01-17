@@ -2,6 +2,8 @@
 
 namespace Controller;
 
+use Controller\AbstractController;
+
 /**
  * Description of FrontController
  *
@@ -27,21 +29,38 @@ class FrontController
         }
     }
     
+    /**
+     * View auto rendering option
+     * @return bool
+     */
     public function getViewEnabled()
     {
         return $this->viewEnabled;
     }
 
+    /**
+     * Get controller action
+     * @return string
+     */
     public function getAction()
     {
         return $this->action;
     }
     
+    /**
+     * Set controller action
+     * @param string $action
+     */
     public function setAction($action)
     {
         $this->action = $action;
     }
     
+    /**
+     * get name of the method witch will
+     * be called in controller
+     * @return string
+     */
     public function getMethod()
     {
         $methodname = ucfirst($this->getAction()) . 'Action';
@@ -57,11 +76,17 @@ class FrontController
         return $this->controller;
     }
     
+    /**
+     * @param AbstractController $controller
+     */
     public function setController(AbstractController $controller)
     {
         $this->controller = $controller;
     }
-    
+
+    /**
+     * Initialize  command line controller
+     */
     protected function initCli()
     {
         $this->viewEnabled = false;
@@ -69,6 +94,9 @@ class FrontController
         $this->setAction('home');
     }
     
+    /**
+     * Initialize web controller
+     */
     protected function initWeb()
     {
         $this->setController(new Web\IndexController());

@@ -2,6 +2,12 @@
 
 namespace Application;
 
+use EventDispatcher\EventDispatcher;
+use Controller\FrontController;
+use DataSaver\SessionDataSaver;
+
+use Model\Battlefield\Visualizer\VisualizerFactory;
+
 /**
  * Description of Application
  *
@@ -9,18 +15,25 @@ namespace Application;
  */
 class Application
 {
+    /**
+     * @var EventDispatcher
+     */
     protected $eventDispacher;
+    /**
+     *
+     * @var FrontController
+     */
     protected $frontController;
     
     public function __construct()
     {
-        $this->eventDispacher = new \EventDispatcher\EventDispatcher();
-        $this->frontController = new \Controller\FrontController();
+        $this->eventDispacher = new EventDispatcher();
+        $this->frontController = new FrontController();
     }
     
     public function run()
     {
-        $visualizerFactory = new \Model\Battlefield\Visualizer\VisualizerFactory();
+        $visualizerFactory = new VisualizerFactory();
         $this->eventDispacher->addSubscriber(
             new \Event\Model\Battlefield\ShootSubscriber(
                 $visualizerFactory
@@ -30,7 +43,7 @@ class Application
         $controller = $this->frontController->getController();
         $controller->setEventDispacher($this->eventDispacher);
         $controller->setVisualizerFactory($visualizerFactory);
-        $controller->setDataSaver(new \DataSaver\SessionDataSaver());
+        $controller->setDataSaver(new SessionDataSaver());
         
         $response = call_user_func_array(
             [
@@ -46,7 +59,9 @@ class Application
             } else {
                 $templateName =  $this->getTemplateControllerName() . DIRECTORY_SEPARATOR . $this->frontController->getAction();
             }
-            $templatePath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Resources/views' . DIRECTORY_SEPARATOR . $templateName;
+            $templatePath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+                    . 'Resources' . DIRECTORY_SEPARATOR
+                    .'views' . DIRECTORY_SEPARATOR . $templateName;
             $templatePath = $templatePath . '.php';
             $view = new \View\View($templatePath);
             $view->setParams($response);
@@ -56,6 +71,12 @@ class Application
         }
     }
     
+    /**
+     * Return controller name used to build template path.
+     *
+     * ontroller\Web\Index will return 'Web'
+     * @return string
+     */
     public function getTemplateControllerName()
     {
         $contollerClass = get_class($this->frontController->getController());

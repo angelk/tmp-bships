@@ -3,7 +3,7 @@
 namespace Event\Model\Battlefield;
 
 /**
- * Description of ShootEvent
+ * Used to hook drurin shoot event
  *
  * @author po_taka <angel.koilov@gmail.com>
  */
