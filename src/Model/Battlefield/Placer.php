@@ -33,17 +33,20 @@ class Placer
     public function __construct(BattleshipInterface $battleship, PointInterface $start, PointInterface $end)
     {
         /*
-         * @TODO
          * placer should allow ony
          * ---->
          * OR
          * | 
          * |
-         * |
          * \/
          * 
          * But not <-----
          */
+        
+        if ($start->getX() > $end->getX() || $start->getY() > $end->getY()) {
+            throw new Exception\Exception("Points missmatch");
+        }
+        
         $this->battleship = $battleship;
         $this->startPoint = $start;
         $this->endPoint = $end;

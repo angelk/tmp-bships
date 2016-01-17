@@ -24,4 +24,15 @@ class PlacerTest extends \PHPUnit_Framework_TestCase
             new Point(2, 0)
         );
     }
+    
+    public function testPointMissMatch()
+    {
+        $this->setExpectedException(\Model\Battlefield\Exception\Exception::class);
+        
+        new Placer(
+            new Destroyer(),
+            new Point(3, 0),
+            new Point(0, 0)
+        );
+    }
 }
