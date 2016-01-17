@@ -22,4 +22,11 @@ class SessionDataSaver implements DataSaverInterface
         
         return false;
     }
+    
+    public function delete($name)
+    {
+        if (isset($_SESSION[$name])) {
+            unset($_SESSION[$name]);
+        }
+    }
 }

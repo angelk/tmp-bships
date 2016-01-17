@@ -10,4 +10,5 @@ interface DataSaverInterface
 {
     public function save($data, $name);
     public function load($name);
+    public function delete($name);
 }

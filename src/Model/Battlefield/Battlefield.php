@@ -227,7 +227,7 @@ class Battlefield
      * Used to check if game should end
      * @return boolean
      */
-    public function isThereNonSinkedBattleship()
+    public function isThereNonSunkBattleship()
     {
         foreach ($this->placers as $placer) {
             foreach ($placer->getPoints() as $placerPoint) {

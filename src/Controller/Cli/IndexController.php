@@ -16,7 +16,7 @@ class IndexController extends \Controller\AbstractController
         
         $battlefield->setEventDispacher($this->getEventDispacher());
         
-        while ($battlefield->isThereNonSinkedBattleship()) {
+        while ($battlefield->isThereNonSunkBattleship()) {
             $visualizer = $this->getVisualizerFactory()->create($battlefield);
             if (($lastShotStatus = $visualizer->getLastShotStatus())) {
                 echo $lastShotStatus . PHP_EOL;

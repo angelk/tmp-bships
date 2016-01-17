@@ -13,6 +13,7 @@ class IndexController extends \Controller\AbstractController
     {
         $info = null;
         $battlefield = $this->getDataSaver()->load('battlefield');
+        /* @var $battlefield \Model\Battlefield\Battlefield */
         if (!$battlefield) {
             $battlefieldFactory = new \Model\Battlefield\BattlefieldFactory();
             $battlefield = $battlefieldFactory->createDefaultBattlefield();
@@ -27,6 +28,10 @@ class IndexController extends \Controller\AbstractController
                 $point = $pointFactory->createPoint($shotData);
                 $battlefield->shoot($point);
                 $this->getDataSaver()->save($battlefield, 'battlefield');
+                if (!$battlefield->isThereNonSunkBattleship()) {
+                    $this->setTemplate('Web/endGame');
+                    return $this->endGameAction();
+                }
             } catch (\Model\Battlefield\Exception\HumanReadableException $e) {
                 if ($e instanceof \Model\Exception\HumanReadableInterface) {
                     $info = $e->getMessage();
@@ -41,6 +46,21 @@ class IndexController extends \Controller\AbstractController
         return [
             'visualizer' => $visualizer,
             'info' => $info,
+        ];
+    }
+    
+    public function endGameAction()
+    {
+        $battlefield = $this->getDataSaver()->load('battlefield');
+        /* @var $battlefield \Model\Battlefield\Battlefield */
+        if ($battlefield->isThereNonSunkBattleship()) {
+            throw new \Model\Battlefield\Exception\HumanReadableException('Error. Game is not ended.');
+        }
+
+        $this->getDataSaver()->delete('battlefield');
+        
+        return [
+            'shots' => $battlefield->getShots()->count(),
         ];
     }
 }

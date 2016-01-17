@@ -14,6 +14,7 @@ class AbstractController
     private $eventDispacher;
     private $visualizerFactory;
     private $dataSaver;
+    private $template;
     
     public function setEventDispacher(\EventDispatcher\EventDispacherInterface $eventDispacher)
     {
@@ -27,6 +28,16 @@ class AbstractController
     public function getVisualizerFactory()
     {
         return $this->visualizerFactory;
+    }
+
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+        
+    public function setTemplate($template)
+    {
+        $this->template = $template;
     }
         
     public function getEventDispacher()

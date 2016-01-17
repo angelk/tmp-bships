@@ -15,7 +15,8 @@
         <br/>
         
         <form method="post" action="">
-            <input type="text" size ="4" name="shot" />
+            Enter coordinates (row, col), e.g. A5
+            <input type="text" size ="4" name="shot" autofocus=""/>
             <input type="submit" />
         </form>
         

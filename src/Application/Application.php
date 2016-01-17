@@ -41,8 +41,13 @@ class Application
         );
         
         if ($this->frontController->getViewEnabled()) {
-            $templatePath = __DIR__ . '/../Resources/views/' . $this->getTemplateControllerName();
-            $templatePath .= '/' . $this->frontController->getAction() . '.php';
+            if ($this->frontController->getController()->getTemplate()) {
+                $templateName = $this->frontController->getController()->getTemplate();
+            } else {
+                $templateName =  $this->getTemplateControllerName() . DIRECTORY_SEPARATOR . $this->frontController->getAction();
+            }
+            $templatePath = __DIR__ . '/../Resources/views/' . $templateName;
+            $templatePath = $templatePath . '.php';
             $view = new \View\View($templatePath);
             $view->setParams($response);
             echo $view->render();

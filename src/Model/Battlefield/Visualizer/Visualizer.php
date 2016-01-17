@@ -121,7 +121,7 @@ class Visualizer implements VisualizerInterface
                 }
             }
             if ($sink) {
-                return 'sink';
+                return 'sunk';
             } else {
                 return 'hit';
             }
