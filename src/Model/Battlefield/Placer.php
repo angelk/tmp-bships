@@ -41,8 +41,8 @@ class Placer
          * \/
          * 
          * But not <-----
+         * Instead of throw error, $start and $end could be exchanged.
          */
-        
         if ($start->getX() > $end->getX() || $start->getY() > $end->getY()) {
             throw new Exception\Exception("Points missmatch");
         }
