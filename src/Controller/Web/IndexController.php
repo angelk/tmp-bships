@@ -29,7 +29,7 @@ class IndexController extends \Controller\AbstractController
                 $battlefield->shoot($point);
                 $this->getDataSaver()->save($battlefield, 'battlefield');
                 if (!$battlefield->isThereNonSunkBattleship()) {
-                    $this->setTemplate('Web/endGame');
+                    $this->setTemplate('Web' . DIRECTORY_SEPARATOR . 'endGame');
                     return $this->endGameAction();
                 }
             } catch (\Model\Battlefield\Exception\HumanReadableException $e) {

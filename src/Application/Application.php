@@ -46,7 +46,7 @@ class Application
             } else {
                 $templateName =  $this->getTemplateControllerName() . DIRECTORY_SEPARATOR . $this->frontController->getAction();
             }
-            $templatePath = __DIR__ . '/../Resources/views/' . $templateName;
+            $templatePath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Resources/views' . DIRECTORY_SEPARATOR . $templateName;
             $templatePath = $templatePath . '.php';
             $view = new \View\View($templatePath);
             $view->setParams($response);
