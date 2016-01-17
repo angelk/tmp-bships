@@ -1,12 +1,11 @@
 <?php
 
-namespace Model\Exception;
+namespace Exception;
 
 /**
- *
+ * Exception messeage could be shown to the user
  * @author po_taka
  */
 interface HumanReadableInterface
 {
-    //put your code here
 }

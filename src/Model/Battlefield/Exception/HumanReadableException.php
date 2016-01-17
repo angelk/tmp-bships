@@ -2,7 +2,7 @@
 
 namespace Model\Battlefield\Exception;
 
-use Model\Exception\HumanReadableInterface;
+use Exception\HumanReadableInterface;
 
 /**
  * Description of HumanReadableException

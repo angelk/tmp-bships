@@ -33,11 +33,9 @@ class IndexController extends \Controller\AbstractController
                     return $this->endGameAction();
                 }
             } catch (\Model\Battlefield\Exception\HumanReadableException $e) {
-                if ($e instanceof \Model\Exception\HumanReadableInterface) {
                     $info = $e->getMessage();
-                } else {
-                    $info = 'error';
-                }
+            } catch (\Exception\Exception $e) {
+                $info = 'error';
             }
         }
         
