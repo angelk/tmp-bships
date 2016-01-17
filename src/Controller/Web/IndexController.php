@@ -12,19 +12,10 @@ class IndexController extends \Controller\AbstractController
     public function homeAction()
     {
         $info = null;
-        $savedData = isset($_SESSION['battleship.progress']) ? $_SESSION['battleship.progress'] : null;
-        if ($savedData) {
-            $battlefield = unserialize($savedData);
-        } else {
+        $battlefield = $this->getDataSaver()->load('battlefield');
+        if (!$battlefield) {
             $battlefieldFactory = new \Model\Battlefield\BattlefieldFactory();
-            $battlefield = $battlefieldFactory->createBattleField(
-                [
-                    new \Model\Battleship\Battleship(),
-                    new \Model\Battleship\Destroyer(),
-                    new \Model\Battleship\Destroyer(),
-                ]
-            );
-            $_SESSION['battleship.progress'] = serialize($battlefield);
+            $battlefield = $battlefieldFactory->createDefaultBattlefield();
         }
         
         $battlefield->setEventDispacher($this->getEventDispacher());
@@ -35,7 +26,7 @@ class IndexController extends \Controller\AbstractController
                 $pointFactory = new \Model\Battlefield\Point\PointFactory();
                 $point = $pointFactory->createPoint($shotData);
                 $battlefield->shoot($point);
-                $_SESSION['battleship.progress'] = serialize($battlefield);
+                $this->getDataSaver()->save($battlefield, 'battlefield');
             } catch (\Model\Battlefield\Exception\HumanReadableException $e) {
                 if ($e instanceof \Model\Exception\HumanReadableInterface) {
                     $info = $e->getMessage();

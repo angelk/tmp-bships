@@ -30,6 +30,7 @@ class Application
         $controller = $this->frontController->getController();
         $controller->setEventDispacher($this->eventDispacher);
         $controller->setVisualizerFactory($visualizerFactory);
+        $controller->setDataSaver(new \DataSaver\SessionDataSaver());
         
         $response = call_user_func_array(
             [

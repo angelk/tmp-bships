@@ -12,13 +12,7 @@ class IndexController extends \Controller\AbstractController
     public function homeAction()
     {
         $battlefieldFactory = new \Model\Battlefield\BattlefieldFactory();
-        $battlefield = $battlefieldFactory->createBattleField(
-            [
-                new \Model\Battleship\Battleship(),
-                new \Model\Battleship\Destroyer(),
-                new \Model\Battleship\Destroyer(),
-            ]
-        );
+        $battlefield = $battlefieldFactory->createDefaultBattlefield();
         
         $battlefield->setEventDispacher($this->getEventDispacher());
         

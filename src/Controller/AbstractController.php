@@ -2,6 +2,8 @@
 
 namespace Controller;
 
+use DataSaver\DataSaverInterface;
+
 /**
  * Description of AbstractController
  *
@@ -11,6 +13,7 @@ class AbstractController
 {
     private $eventDispacher;
     private $visualizerFactory;
+    private $dataSaver;
     
     public function setEventDispacher(\EventDispatcher\EventDispacherInterface $eventDispacher)
     {
@@ -34,5 +37,21 @@ class AbstractController
     public function setVisualizerFactory(\Model\Battlefield\Visualizer\VisualizerFactory $visualizerFactory)
     {
         $this->visualizerFactory = $visualizerFactory;
+    }
+    
+    public function setDataSaver(DataSaverInterface $dataSaver)
+    {
+        $this->dataSaver = $dataSaver;
+    }
+    
+    /**
+     * @return DataSaverInterface
+     */
+    public function getDataSaver()
+    {
+        if (!$this->dataSaver) {
+            throw new \Model\Exception\Exception("DataSaver not set");
+        }
+        return $this->dataSaver;
     }
 }
