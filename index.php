@@ -1,7 +1,6 @@
 <?php
 
 error_reporting(-1);
-// @TODO fix!
 session_start();
 
 spl_autoload_register(function ($name) {
