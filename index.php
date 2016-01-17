@@ -14,8 +14,5 @@ spl_autoload_register(function ($name) {
     return false;
 });
 
-// @TODO error handler
-// @TODO exception handler
-
 $app = new \Application\Application();
 $app->run();

@@ -27,6 +27,7 @@ class Application
     
     public function __construct()
     {
+        $this->registerErrorHandler();
         $this->eventDispacher = new EventDispatcher();
         $this->frontController = new FrontController();
     }
@@ -70,6 +71,15 @@ class Application
         } else {
             return $response;
         }
+    }
+    
+    /**
+     * Register custom error handler
+     */
+    protected function registerErrorHandler()
+    {
+        $handler = new \Error\ErrorHandler();
+        $handler->register();
     }
     
     /**
